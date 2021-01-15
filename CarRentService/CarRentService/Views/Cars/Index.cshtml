@@ -1,0 +1,125 @@
+﻿
+
+@model IEnumerable<CarRentService.Models.CarModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (TempData["Res"] != null)
+{
+    <p class="'alert-success">
+        Zmiany - @TempData["Res"]
+    </p>
+
+}
+
+<h1 class="text-white">Oferta</h1>
+<p>
+    @{ if (User.IsInRole("admins"))
+        {
+            <a  asp-action="Create">Dodaj nowy</a>
+        }
+        else
+        {
+            <a  hidden asp-action="Create">Create New</a>
+        }
+    }
+
+</p>
+
+
+
+<form id="emailForm"  class="text-white" asp-controller="Cars" asp-action="Index">
+    <p>
+        Wpisz wyszukiwaną frazę: <input type="text" name="SearchString">
+        <input type="submit" value="Znajdź" />
+
+
+    </p>
+</form>
+
+
+
+<table class="table text-white">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfProduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Power)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reservation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearOfProduction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Power)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reservation)
+                </td>
+                <td>
+
+
+                    @{ if (User.IsInRole("admins"))
+                        {
+
+
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+
+                            <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+
+
+
+                        }
+                        else
+                        {   <a hidden asp-action="Edit" asp-route-id="@item.Id">Edytuj</a>
+
+                            <a hidden asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+
+
+                        }
+                    }
+
+                            <a asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+
+                            <a asp-action="Reserv" asp-route-id="@item.Id">Zarezerwuj</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+<p>@ViewBag.userId</p>
+
+

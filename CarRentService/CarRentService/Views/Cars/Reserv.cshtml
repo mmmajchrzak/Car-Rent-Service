@@ -1,0 +1,39 @@
+﻿@model CarRentService.Models.CarModel
+
+@{
+    ViewData["Title"] = "Reserv";
+}
+
+
+<h1>Rezerwacja</h1>
+
+<h4>Czy chcesz zarezerwować @Html.DisplayFor(model => model.Brand) @Html.DisplayFor(model => model.Model) ?</h4>
+
+
+<form asp-action="Reserv">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="Brand" />
+    <input type="hidden" asp-for="Reservation" value="@TempData["userId"]" />
+
+    <div class="form-group">
+        <input type="submit" value="Zarezerwuj" class="btn btn-primary" />
+        <a asp-action="Index">Powrót do listy</a>
+    </div>
+    <span asp-validation-for="Reservation" class="text-danger"></span>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
